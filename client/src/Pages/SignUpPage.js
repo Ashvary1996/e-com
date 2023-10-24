@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
-
+import axios from "axios";
 import validationSchema from "../components/validation";
 
 function SignUpPage() {
@@ -18,9 +18,27 @@ function SignUpPage() {
   const [formData, setFormData] = useState([inititalValues]);
   // console.log("formData", formData);
 
-  const submitForm = (values) => {
-    setFormData((pdata) => [...pdata, values]);
-    console.log("Submitted", values);
+  const submitForm = async (values) => {
+    // ...........................//
+    await axios
+      .get("http://localhost:8000/api/signup", values.email)
+      .then((elem) => {
+        console.log(elem.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // ...........................//
+    await axios
+      .post("http://localhost:8000/api/signup", values)
+      .then(() => {
+        setFormData((pdata) => [...pdata, values]);
+        // console.log("Submitted", values);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // ...........................//
   };
   return (
     <>

@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
-const port = 5500;
+const port = 8000;
 const uri = "mongodb://0.0.0.0:27017/ecom";
 // .................................//
 app.use(
@@ -23,10 +23,10 @@ app.use("/api", require("./routes/SignupRoute"));
 
 // .................................//
 
-mongoose 
+mongoose
   .connect(uri)
-  .then(() => console.log("Connect To DB Success"))
-  .catch((err) => console.log(err));
+  .then(() => console.log("Connected To Database Successfully"))
+  .catch((err) => console.log(err, "error in connecting to database"));
 
 app.listen(port, () => {
   console.log("Server is up with port :", port);
