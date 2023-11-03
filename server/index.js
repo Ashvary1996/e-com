@@ -2,10 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
+const dotenv = require("dotenv").config();
 const app = express();
-const port = 8000;
-const uri = "mongodb://0.0.0.0:27017/ecom";
+const port = process.env.PORT || 8000;
+const uri = process.env.MONGO_URI;
 // .................................//
 app.use(
   bodyParser.urlencoded({

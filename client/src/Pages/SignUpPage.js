@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useState } from "react";
 import axios from "axios";
 import validationSchema from "../components/validation";
 
@@ -19,27 +18,31 @@ function SignUpPage() {
   // console.log("formData", formData);
 
   const submitForm = async (values) => {
-    // ...........................//
-    await axios
-      .get("http://localhost:8000/api/signup", values.email)
-      .then((elem) => {
-        console.log(elem.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // ...........................//
     await axios
       .post("http://localhost:8000/api/signup", values)
       .then(() => {
         setFormData((pdata) => [...pdata, values]);
-        // console.log("Submitted", values);
       })
       .catch((err) => {
         console.log(err);
       });
     // ...........................//
   };
+  // This useEffect is for Checking the registered users
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:8000/api/allusers")
+  //     .then((user) => {
+  //       for (let i = 0; i < user.data.length; i++) {
+  //         let emails = user.data[i].email;
+  //         console.log(emails);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [submitForm]);
+
   return (
     <>
       <h1>Sign Up Page</h1>
