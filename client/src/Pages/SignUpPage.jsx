@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import validationSchema from "../components/validation";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function SignUpPage() {
+  let navigate = useNavigate();
   const inititalValues = {
     firstName: "",
     lastName: "",
@@ -14,7 +16,8 @@ function SignUpPage() {
     checked: false,
   };
 
-  const [formData, setFormData] = useState([inititalValues]);
+  // const [formData, setFormData] = useState([inititalValues]);
+  const [formData, setFormData] = useState([]);
   // console.log("formData", formData);
 
   const submitForm = async (values) => {
@@ -22,9 +25,11 @@ function SignUpPage() {
       .post("http://localhost:8000/api/signup", values)
       .then(() => {
         setFormData((pdata) => [...pdata, values]);
+        alert("signUP");
+        navigate("/login", { replace: true });
       })
       .catch((err) => {
-        console.log(err);
+        console.log("possible error : failed to fetch api or ->", err);
       });
     // ...........................//
   };
@@ -117,6 +122,9 @@ function SignUpPage() {
             </div>
 
             <button type="submit">Submit</button>
+            <p>Already a user?</p>
+            <Link to="login">Log-in</Link>
+            {/* <Link to="me">My Profile</Link> */}
           </Form>
         </Formik>
       </div>
