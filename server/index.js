@@ -11,7 +11,7 @@ app.use(
   bodyParser.urlencoded({
     extended: true,
   })
-); 
+);
 app.use(bodyParser.json());
 app.use(cors());
 // ........................
@@ -20,7 +20,8 @@ app.get("/hello", (req, res) => {
 });
 
 app.use("/api", require("./routes/SignupRoute"));
-app.use("/api", require("./routes/LoginRoute")); 
+app.use("/api", require("./routes/LoginRoute"));
+app.use("/api", require("./routes/Cart"));
 
 // .................................//
 
